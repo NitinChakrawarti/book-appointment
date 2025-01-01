@@ -1,57 +1,44 @@
-
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import Spinner from '../componets/soinner';
+import { LayoutCompo } from '../componets/layout';
+import { useSelector } from 'react-redux';
 
 export const HomePage = () => {
-  const [userData, setUserData] = useState(null);
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
+  const { user } = useSelector(state => state.user);
+  // const getUserData = () => {
 
-  const getUserData = () => {
+  //   const cookies = document.cookie;
+  //   if (!cookies.includes('logintoken=')) {
+  //     setError('Redirecting to login...');
+  //     setTimeout(() => navigate('/login'), 3000); // Redirect after 3 seconds
+  //     return;
+  //   }
 
-    const cookies = document.cookie;
-    if (!cookies.includes('logintoken=')) {
-      setError('Redirecting to login...');
-      setTimeout(() => navigate('/login'), 3000); // Redirect after 3 seconds
-      return;
-    }
+  //   setLoading(true);
+  //   axios.post(`${import.meta.env.VITE_BASE_URL}/user/getuser`, {}, {
+  //     withCredentials: true,
+  //   })
+  //     .then(res => {
+  //       setUserData(res.data);
+  //     })
+  //     .catch(err => {
+  //       setError(err.response?.data?.message || 'Failed to fetch user data.');
+  //     })
+  //     .finally(() => {
+  //       setLoading(false);
+  //     });
+  // };
 
-    setLoading(true);
-    axios.post(`${import.meta.env.VITE_BASE_URL}/user/getuser`, {}, {
-      withCredentials: true,
-    })
-      .then(res => {
-        setUserData(res.data);
-      })
-      .catch(err => {
-        setError(err.response?.data?.message || 'Failed to fetch user data.');
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  };
-
-  useEffect(() => {
-    getUserData();
-  }, []);
+  // useEffect(() => {
+  //   getUserData();
+  // }, [user]);
 
   return (
-    <div>
-      {loading &&
-        <Spinner />
-      }
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      {userData ? (
+    <>
+      <LayoutCompo >
         <div>
-          <h1>Welcome, {userData.name}</h1>
-          <p>Email: {userData.email}</p>
+          <h1>Home Page</h1>
+          <p>Welcome to the home page, {user?.name}!</p>
         </div>
-      ) : (
-        !loading && <p>No user data available.</p>
-      )}
-    </div>
+      </LayoutCompo>
+    </>
   );
 };

@@ -9,7 +9,6 @@ const router = express.Router();
 router.post('/sign-up', UserController.signUp);
 router.post('/login', UserController.login);
 router.post('/getuser', authMiddleware, UserController.authController);
+router.post('/applydoctor',authMiddleware, UserController.applyDoctor);
+
 exports.router = router;
-
-
-

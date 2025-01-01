@@ -1,20 +1,19 @@
 const userModel = require("../models/user.model.js");
 const userService = require("../services/user.service.js");
-
+const doctormodel = require("../models/doctormodel.js");
 
 class UserController {
     //-----sign up function ------//
     async signUp(request, response, next) {
         const { name, email, password } = request.body;
         try {
-            const newUser = await userService.createuser(name, email, password);
+            await userService.createuser(name, email, password);
             return response.status(200).send({ message: "You can login now" });
         }
         catch (error) {
             next(error);
         }
     }
-
     async login(request, response, next) {
         const { email, password } = request.body;
         try {
@@ -44,11 +43,11 @@ class UserController {
                     sucess: false
                 });
             } else {
+                user.password = undefined;
                 return response.status(200).send({
                     message: "User found",
                     sucess: true,
-                    name: user.name,
-                    email: user.email,
+                    user: user
                 });
             }
         } catch (error) {
@@ -59,6 +58,28 @@ class UserController {
             });
         }
     }
-}
+    async applyDoctor(request, response, next) {
+        try {
+            const newDoctor = await doctormodel({ ...request.body, status: "pending" });
+            await newDoctor.save();
+            const adminuser = await userModel.findOne({ isAdmin: true });
+            const notification = adminuser.notification;
+            notification.push({
+                type: "apply-doctor-request",
+                message: `${request.body.firstName} has applied for doctor`,
+                data: {
+                    userId: request.body.userId,
+                    doctorId: newDoctor._id,
+                    name: request.body.firstName + " " + request.body.lastName,
+                    onclick: "/admin/doctor"
+                }
+            });
+            await userModel.findOneAndUpdate(adminuser._id, { notification: notification });
+            return response.status(201).send({ message: "Doctor added successfully" });
+        } catch (error) {
+            next(error);
+        }
+    }
 
+}
 module.exports = new UserController();

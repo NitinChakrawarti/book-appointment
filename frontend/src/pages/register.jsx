@@ -1,4 +1,4 @@
-import { Button, Form, Input } from 'antd';
+import { Button, Form, Input, message } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 export const Register = () => {
@@ -10,7 +10,7 @@ export const Register = () => {
   
     axios.post(`${import.meta.env.VITE_BASE_URL}/user/sign-up`, values)
       .then((response) => {
-        alert('User registered successfully!');
+        message.success(response.data.message);
         navigate('/login');
       })
       .catch((error) => {

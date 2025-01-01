@@ -1,4 +1,4 @@
-import { Button, Form, Input } from 'antd';
+import { Button, Form, Input, message } from 'antd';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
@@ -11,12 +11,12 @@ export const Login = () => {
       withCredentials: true,
     })
       .then((response) => {
-        alert('User logged in successfully!');
+        message.success('User logged in successfully!');
         document.cookie = `logintoken=${response.token}; path=/; secure; HttpOnly;`;
         navigate('/');
       })
       .catch((error) => {
-        alert('Invalid credentials');
+        message.error('Invalid credentials');
         console.error(error);
       });
   };

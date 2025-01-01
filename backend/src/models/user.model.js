@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const colors = require('colors');
+
 
 const user = mongoose.Schema({
     name: {
@@ -19,6 +19,22 @@ const user = mongoose.Schema({
         type: String,
         required: [true, 'password is required'],
     },
+    isAdmin: {
+        type: Boolean,
+        default: false,
+    },
+    isDoctor: {
+        type: Boolean,
+        default: false,
+    },
+    notification: {
+        type: Array,
+        default: []
+    },
+    seennotification: {
+        type: Array,
+        default: []
+    }
 },
     { timestamps: true }
 );

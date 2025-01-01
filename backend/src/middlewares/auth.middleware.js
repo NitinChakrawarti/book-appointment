@@ -9,7 +9,6 @@ module.exports = async (request, response, next) => {
         try {
             const info = jwt.verify(token, process.env.JWT_PRIVATE_KEY);
             request.body.userId = info.id;
-            console.log(request.body.userId);
             next();
         } catch (verifyError) {
             return response.status(403).json({ message: 'Invalid or expired token' });
