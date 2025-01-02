@@ -6,8 +6,13 @@ import { useSelector } from 'react-redux'
 import Spinner from './componets/spinner'
 import ProtectedRoute from './componets/protectedRoute'
 import PublicRoute from './componets/publicRoute'
-import ApplyDoctor from './componets/applaydoctor'
-import Allnotification from './componets/allnotification'
+import ApplyDoctor from './pages/applaydoctor'
+import AllNotification from './pages/allnotification'
+import Users from './pages/admin/users'
+import Doctors from './pages/admin/doctors'
+import Profile from './pages/doctor/profile'
+import Appointments from './pages/doctor/appointments'
+
 
 function App() {
 
@@ -35,10 +40,42 @@ function App() {
               }
             />
             <Route
+              path="/admin/users"
+              element={
+                <ProtectedRoute>
+                  <Users />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin/doctors"
+              element={
+                <ProtectedRoute>
+                  <Doctors />
+                </ProtectedRoute>
+              }
+            />
+            <Route
               path="/notifications"
               element={
                 <ProtectedRoute>
-                  <Allnotification />
+                  <AllNotification />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/doctor/appointments"
+              element={
+                <ProtectedRoute>
+                  <Appointments />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/doctor/profile"
+              element={
+                <ProtectedRoute>
+                  <Profile />
                 </ProtectedRoute>
               }
             />

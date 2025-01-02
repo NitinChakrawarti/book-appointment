@@ -1,7 +1,7 @@
 const userModel = require('../models/user.model');
 
 class notificationService {
-
+    
     //------------------------get all notifications-------------------------
     async getAllNotifications(userId) {
         const user = await userModel.findOne({ _id: userId });
@@ -27,6 +27,19 @@ class notificationService {
             seennotification.push(...notification);
             user.seennotification = seennotification;
             user.notification = [];
+            const updateduser = await user.save();
+            return updateduser;
+        }
+        else {
+            return null;
+        }
+    }
+    //------------------------delete all notifications-------------------------
+    async deleteAllNotification(userId) {
+        const user = await userModel.findOne({ _id: userId });
+        if (user) {
+            user.notification = [];
+            user.seennotification = [];
             const updateduser = await user.save();
             return updateduser;
         }

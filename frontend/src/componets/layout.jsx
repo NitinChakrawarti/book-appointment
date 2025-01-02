@@ -7,7 +7,7 @@ import { message } from 'antd';
 import Spinner from './spinner';
 
 const { Sider, Content, Header } = Layout;
-import { adminMenu } from ".//../data/data";
+import { adminMenu, doctorMenu } from ".//../data/data";
 import { userMenu } from ".//../data/data";
 
 
@@ -35,7 +35,7 @@ export function LayoutCompo({ children }) {
                 className="bg-[#001529] text-white p-6 fixed top-0 bottom-0 left-0 z-10"
             >
                 <div className="logo text-center text-2xl font-semibold mb-12">
-                    <h2>Brand</h2>
+                    <h2> HealthSure  </h2>
                 </div>
                 <Menu
                     theme="dark"
@@ -44,18 +44,8 @@ export function LayoutCompo({ children }) {
                     onClick={handleMenuClick}
                     className="border-none"
                 >
-                    {user.isAdmin ? adminMenu.map((item) => (
-                        <Menu.Item
-                            key={item.key}
-                            icon={item.icon}
-                            className="hover:bg-gray-700 transition duration-300"
-                        >
-                            <Link to={item.path} className="text-white hover:text-primary">
-                                {item.label}
-                            </Link>
-                        </Menu.Item>
-                    ))
-                        : userMenu.map((item) => (
+                    {
+                        user.isAdmin ? adminMenu.map((item) => (
                             <Menu.Item
                                 key={item.key}
                                 icon={item.icon}
@@ -66,6 +56,30 @@ export function LayoutCompo({ children }) {
                                 </Link>
                             </Menu.Item>
                         ))
+                            : user.isDoctor ?
+                                doctorMenu.map((item) => (
+                                    <Menu.Item
+                                        key={item.key}
+                                        icon={item.icon}
+                                        className="hover:bg-gray-700 transition duration-300"
+                                    >
+                                        <Link to={item.path} className="text-white hover:text-primary">
+                                            {item.label}
+                                        </Link>
+                                    </Menu.Item>
+                                ))
+                                :
+                                userMenu.map((item) => (
+                                    <Menu.Item
+                                        key={item.key}
+                                        icon={item.icon}
+                                        className="hover:bg-gray-700 transition duration-300"
+                                    >
+                                        <Link to={item.path} className="text-white hover:text-primary">
+                                            {item.label}
+                                        </Link>
+                                    </Menu.Item>
+                                ))
                     }
 
                     <Menu.Item

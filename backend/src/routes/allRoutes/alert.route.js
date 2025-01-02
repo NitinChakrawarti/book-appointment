@@ -6,6 +6,7 @@ const router = express.Router();
 
 router.post('/get-all-notifications', authMiddleware, NotificationController.getAllNotifications);
 router.post('/mark-all-read', authMiddleware, NotificationController.markAllRead);
+router.post('/delete-all-notification', authMiddleware, NotificationController.deleteAllNotification);
 
 exports.router = router;
 

@@ -14,6 +14,7 @@ export const Login = () => {
         message.success('User logged in successfully!');
         document.cookie = `logintoken=${response.token}; path=/; secure; HttpOnly;`;
         navigate('/');
+        window.location.reload();
       })
       .catch((error) => {
         message.error('Invalid credentials');

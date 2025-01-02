@@ -56,6 +56,32 @@ class NotificationController {
             });
         }
     }
+
+    //------------------------------delete all notifications-------------------------
+    async deleteAllNotification(request, response) {
+        try {
+            const result = await notificationService.deleteAllNotification(request.body.userId);
+            if (result) {
+                return response.status(200).send({
+                    message: "All notifications deleted",
+                    success: true,
+                    data: result
+                });
+            }
+            else {
+                return response.status(201).send({
+                    message: "No notifications found",
+                    success: false
+                });
+            }
+        } catch (error) {
+            return response.status(500).send({
+                message: "Error in deleting notifications",
+                success: false,
+                error
+            });
+        }
+    }
 }
 
 module.exports = new NotificationController();

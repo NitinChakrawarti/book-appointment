@@ -4,7 +4,7 @@ module.exports = async (request, response, next) => {
     try {
         const token = request.cookies.logintoken;
         if (!token) {
-            return response.status(401).json({ message: 'Authentication token is required' });
+            return response.status(401).json({ message: 'Authentication token is required'});
         }
         try {
             const info = jwt.verify(token, process.env.JWT_PRIVATE_KEY);

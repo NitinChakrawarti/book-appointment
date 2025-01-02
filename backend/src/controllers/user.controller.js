@@ -58,9 +58,10 @@ class UserController {
             });
         }
     }
+
     async applyDoctor(request, response, next) {
         try {
-            const newDoctor = await doctormodel({ ...request.body, status: "pending" });
+            const newDoctor = await doctormodel({ ...request.body, UserId: request.body.userId, status: "pending" });
             await newDoctor.save();
             const adminuser = await userModel.findOne({ isAdmin: true });
             const notification = adminuser.notification;
@@ -81,5 +82,36 @@ class UserController {
         }
     }
 
+    async getdocstatus(request, response, next) {
+        const { userId } = request.body;
+        try {
+            const dcotor = await doctormodel.findOne({ UserId: userId });
+            if (dcotor) {
+                return response.status(200).send(
+                    {
+                        message: "you have alreay a application",
+                        sucess: true,
+                        data: dcotor
+                    }
+                )
+            }
+            else {
+                return response.status(200).send(
+                    {
+                        message: "no application found for this user ",
+                        sucess: false,
+                    }
+                )
+            }
+        }
+        catch (error) {
+            console.log(error)
+            return response.send(400).send({
+                message: "error in fetching application",
+                sucess: false,
+                error
+            })
+        }
+    }
 }
 module.exports = new UserController();

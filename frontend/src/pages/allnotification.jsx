@@ -1,5 +1,5 @@
-import  { useState } from "react";
-import { LayoutCompo } from "./layout";
+import { useState } from "react";
+import { LayoutCompo } from "../componets/layout";
 import { useSelector, useDispatch } from "react-redux";
 import { Card, Button, List, Typography, Tabs, message } from "antd";
 import { CheckOutlined, DeleteOutlined } from "@ant-design/icons";
@@ -32,9 +32,31 @@ const AllNotification = () => {
         }
     };
 
-    const handleDeleteAll = () => {
-        message.success("All notifications deleted.");
-        dispatch({ type: "DELETE_ALL_NOTIFICATIONS" });
+    const handleDeleteAll = async () => {
+        try {
+            dispatch(showLoading());
+            const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/notification/delete-all-notification`, { userId: user._id },{
+                withCredentials: true,
+            }
+            )
+            console.log(response);
+
+            if (response.data.success) {
+                message.success("All notifications deleted.");
+                const newUser = response.data.data;
+                dispatch(setuser(newUser));
+                dispatch(hideLoading());
+            }
+            else {
+                message.error(response.data.message);
+                dispatch(hideLoading());
+            }
+
+        } catch (error) {
+            console.log(error);
+            message.error("Something went wrong");
+            dispatch(hideLoading());
+        }
     };
 
     const handleTabChange = (key) => {

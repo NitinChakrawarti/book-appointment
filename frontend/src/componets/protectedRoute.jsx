@@ -73,7 +73,7 @@ export default function ProtectedRoute({ children }) {
             return;
         }
         try {
-            dispatch(showLoading());
+            // dispatch(showLoading());
             const response = await axios.post(
                 `${import.meta.env.VITE_BASE_URL}/user/getuser`,
                 {},
@@ -83,13 +83,13 @@ export default function ProtectedRoute({ children }) {
                 dispatch(setuser(response.data.user));
                 navigate("/");
             } else {
-                navigate("/login");
+                navigate("/register");
             }
         } catch (error) {
             console.error("Error fetching user:", error);
-            navigate("/login");
+            navigate("/register");
         } finally {
-            dispatch(hideLoading());
+            // dispatch(hideLoading());
             setLoading(false);
         }
     };
