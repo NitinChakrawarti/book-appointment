@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.custom-time-picker .ant-picker-time-panel-column {
+    transition: none !important;
+  }
+  

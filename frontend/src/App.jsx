@@ -12,6 +12,8 @@ import Users from './pages/admin/users'
 import Doctors from './pages/admin/doctors'
 import Profile from './pages/doctor/profile'
 import Appointments from './pages/doctor/appointments'
+import UserAppointment from './pages/user/userAppointment'
+import Bookingpage from './componets/bookingpage'
 
 
 function App() {
@@ -68,6 +70,22 @@ function App() {
               element={
                 <ProtectedRoute>
                   <Appointments />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/user/appointments"
+              element={
+                <ProtectedRoute>
+                  <UserAppointment />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path={`/user/appointment/:doctorId`}
+              element={
+                <ProtectedRoute>
+                  <Bookingpage />
                 </ProtectedRoute>
               }
             />

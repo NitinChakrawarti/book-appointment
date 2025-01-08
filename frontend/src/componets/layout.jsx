@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Layout, Menu } from 'antd';
-import { Home, Calendar, UserCheck, User, LogOut, Bell } from 'lucide-react';
+import { User, LogOut, Bell } from 'lucide-react';
 import { useSelector } from 'react-redux';
 import { message } from 'antd';
 import Spinner from './spinner';

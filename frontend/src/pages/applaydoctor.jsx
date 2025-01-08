@@ -17,8 +17,13 @@ const ApplyDoctor = () => {
     const navigate = useNavigate();
     const onFinish = async (values) => {
         try {
+            const timings = [
+                values.timings[0].format("HH:mm"),
+                values.timings[1].format("HH:mm"),
+            ];
+
             dispatch(showLoading());
-            const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/user/applydoctor`, { ...values, userId: user.id }, {
+            const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/user/applydoctor`, { ...values, timings, userId: user.id }, {
                 withCredentials: true,
             });
             dispatch(hideLoading());

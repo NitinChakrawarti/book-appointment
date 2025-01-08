@@ -66,6 +66,15 @@ export const Login = () => {
               Login
             </Button>
           </Form.Item>
+          <Form.Item className="text-center">
+            <button
+              type="button"
+              onClick={() => navigate('/register')}
+              className="text-indigo-500 hover:underline"
+            >
+              Register now 
+            </button>
+          </Form.Item>
         </Form>
       </div>
     </div>

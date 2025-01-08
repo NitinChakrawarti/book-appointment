@@ -58,7 +58,6 @@ class UserController {
             });
         }
     }
-
     async applyDoctor(request, response, next) {
         try {
             const newDoctor = await doctormodel({ ...request.body, UserId: request.body.userId, status: "pending" });
@@ -81,7 +80,6 @@ class UserController {
             next(error);
         }
     }
-
     async getdocstatus(request, response, next) {
         const { userId } = request.body;
         try {
@@ -108,6 +106,56 @@ class UserController {
             console.log(error)
             return response.send(400).send({
                 message: "error in fetching application",
+                sucess: false,
+                error
+            })
+        }
+    }
+    async getAlldoctors(request, response) {
+        try {
+            const doctors = await doctormodel.find({});
+            if (doctors) {
+                return response.status(200).send({
+                    message: "doctors list fetched",
+                    success: true,
+                    doctors
+                })
+            }
+            else {
+                return response.status(200).send({
+                    message: "no doctor available ",
+                    success: true,
+                })
+            }
+        } catch (error) {
+            console.log(erro);
+            return response.status(400).send({
+                message: "error in fetching doctors"
+            })
+
+        }
+    }
+    async getAdoctor(request, response) {
+        const { doctorId } = request.params
+        try {
+            const doctor = await doctormodel.findOne({ _id: doctorId })
+            if (doctor) {
+                return response.status(200).send({
+                    message: "doctor found",
+                    success: true,
+                    doctor
+                })
+            }
+            else {
+                return response.status(200).send({
+                    message: "no doctor found",
+                    success: true
+                })
+            }
+        } catch (error) {
+            console.log(error);
+            return response.status(400).send({
+                message: "error in getting details",
                 sucess: false,
                 error
             })

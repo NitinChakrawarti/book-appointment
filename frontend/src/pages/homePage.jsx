@@ -1,44 +1,61 @@
 import { LayoutCompo } from '../componets/layout';
 import { useSelector } from 'react-redux';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import { message, Card, List, Typography, Spin, Row, Col } from 'antd';
+import DoctorList from '../componets/doctorList';
+
+const { Title, Text } = Typography;
 
 export const HomePage = () => {
-  const { user } = useSelector(state => state.user);
-  // const getUserData = () => {
+  const { user } = useSelector((state) => state.user);
+  const [doctors, setDoctors] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-  //   const cookies = document.cookie;
-  //   if (!cookies.includes('logintoken=')) {
-  //     setError('Redirecting to login...');
-  //     setTimeout(() => navigate('/login'), 3000); // Redirect after 3 seconds
-  //     return;
-  //   }
-
-  //   setLoading(true);
-  //   axios.post(`${import.meta.env.VITE_BASE_URL}/user/getuser`, {}, {
-  //     withCredentials: true,
-  //   })
-  //     .then(res => {
-  //       setUserData(res.data);
-  //     })
-  //     .catch(err => {
-  //       setError(err.response?.data?.message || 'Failed to fetch user data.');
-  //     })
-  //     .finally(() => {
-  //       setLoading(false);
-  //     });
-  // };
-
-  // useEffect(() => {
-  //   getUserData();
-  // }, [user]);
-
+  useEffect(() => {
+    const fetchDoctors = async () => {
+      try {
+        setLoading(true);
+        const doctorList = await axios.get(`${import.meta.env.VITE_BASE_URL}/user/get-all-doctors`, {
+          withCredentials: true,
+        });
+        if (doctorList.data.success) {
+          setDoctors(doctorList.data.doctors);
+        } else {
+          message.error(doctorList.data.message);
+        }
+      } catch (error) {
+        console.error(error);
+        message.error('Failed to fetch doctors. Please try again later.');
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchDoctors();
+  }, []);
   return (
-    <>
-      <LayoutCompo >
-        <div>
-          <h1>Home Page</h1>
-          <p>Welcome to the home page, {user?.name}!</p>
-        </div>
-      </LayoutCompo>
-    </>
+    <LayoutCompo>
+      <div style={{ padding: '20px' }}>
+        <Title level={2}>Welcome {user?.name}!</Title>
+        <Text type="secondary" className=''>Explore the list of available doctors below:</Text>
+
+        {loading ? (
+          <Row justify="center" style={{ marginTop: '20px' }}>
+            <Spin size="large" />
+          </Row>
+        ) : (
+          <div>
+            {
+              doctors.map((doctor, index) => (
+                <DoctorList key={index} doctor={doctor} />
+              ))
+            }
+          </div>
+        )}
+        {!loading && doctors.length === 0 && (
+          <Text type="danger">No doctors are available at the moment.</Text>
+        )}
+      </div>
+    </LayoutCompo>
   );
 };

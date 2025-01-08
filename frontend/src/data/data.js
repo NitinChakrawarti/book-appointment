@@ -12,7 +12,7 @@ export const adminMenu = [
 // User Menu
 export const userMenu = [
     { key: '/', icon: React.createElement(Home), label: 'Home', path: '/' },
-    { key: '/appointments', icon: React.createElement(Calendar), label: 'Appointments', path: '/appointments' },
+    { key: '/user/appointments', icon: React.createElement(Calendar), label: 'Appointments', path: '/user/appointments' },
     { key: '/apply-doctor', icon: React.createElement(Clipboard), label: 'Apply Doctor', path: '/apply-doctor' },
     { key: '/profile', icon: React.createElement(User), label: 'Profile', path: '/profile' },
 ];
