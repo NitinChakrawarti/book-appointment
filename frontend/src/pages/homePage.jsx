@@ -19,10 +19,10 @@ export const HomePage = () => {
         const doctorList = await axios.get(`${import.meta.env.VITE_BASE_URL}/user/get-all-doctors`, {
           withCredentials: true,
         });
-        if (doctorList.data.success) {
+        if (doctorList.data.doctors) {
           setDoctors(doctorList.data.doctors);
         } else {
-          message.error(doctorList.data.message);
+          message.success(doctorList.data.message);
         }
       } catch (error) {
         console.error(error);
@@ -33,6 +33,7 @@ export const HomePage = () => {
     };
     fetchDoctors();
   }, []);
+
   return (
     <LayoutCompo>
       <div style={{ padding: '20px' }}>
@@ -46,7 +47,7 @@ export const HomePage = () => {
         ) : (
           <div>
             {
-              doctors.map((doctor, index) => (
+              doctors?.map((doctor, index) => (
                 <DoctorList key={index} doctor={doctor} />
               ))
             }

@@ -113,7 +113,14 @@ class UserController {
     }
     async getAlldoctors(request, response) {
         try {
-            const doctors = await doctormodel.find({});
+            const doctors = await doctormodel.aggregate([
+                {
+                    $match: {
+                        status: 'approved', // Match only approved doctors
+                    },
+                },
+                { $limit: 10 }, // Limit the results to 10
+            ]);
             if (doctors) {
                 return response.status(200).send({
                     message: "doctors list fetched",
@@ -128,7 +135,7 @@ class UserController {
                 })
             }
         } catch (error) {
-            console.log(erro);
+            console.log(error);
             return response.status(400).send({
                 message: "error in fetching doctors"
             })

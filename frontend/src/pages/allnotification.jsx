@@ -39,8 +39,6 @@ const AllNotification = () => {
                 withCredentials: true,
             }
             )
-            console.log(response);
-
             if (response.data.success) {
                 message.success("All notifications deleted.");
                 const newUser = response.data.data;

@@ -45,7 +45,7 @@ export function LayoutCompo({ children }) {
                     className="border-none"
                 >
                     {
-                        user.isAdmin ? adminMenu.map((item) => (
+                        user?.isAdmin ? adminMenu.map((item) => (
                             <Menu.Item
                                 key={item.key}
                                 icon={item.icon}
@@ -56,7 +56,7 @@ export function LayoutCompo({ children }) {
                                 </Link>
                             </Menu.Item>
                         ))
-                            : user.isDoctor ?
+                            : user?.isDoctor ?
                                 doctorMenu.map((item) => (
                                     <Menu.Item
                                         key={item.key}

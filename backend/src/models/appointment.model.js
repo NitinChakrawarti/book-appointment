@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 
 const appointmentSchema = new mongoose.Schema({
     userId: {
-
         type: String,
         required: [true, 'userId is required'],
     },
@@ -13,7 +12,6 @@ const appointmentSchema = new mongoose.Schema({
     doctorinfo:{
         type:String,
         required:[true, 'doctorinfo is required'],
-
     },
     userinfo:{
         type:String,
@@ -39,3 +37,5 @@ const appointmentSchema = new mongoose.Schema({
 );
 
 const appointmentModel = mongoose.model('appointmentModel', appointmentSchema); // 'appointmentModel' is the name of the collection that this schema is for
+
+module.exports = appointmentModel;  

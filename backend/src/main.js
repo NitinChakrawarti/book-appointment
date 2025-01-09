@@ -28,7 +28,7 @@ app.use(cookieParser({
 }));
 
 //--------routes ---------------//
-app.use('/', require('./routes/mainRoute'));
-// app.use('/api/v1/user', require('./routes/mainRoute')); 
+// app.use('/', require('./routes/mainRoute'));
+app.use('/api/v1/user', require('./routes/mainRoute')); 
 
 module.exports = { app };
