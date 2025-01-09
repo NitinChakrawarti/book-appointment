@@ -6,7 +6,7 @@ export const adminMenu = [
     { key: '/', icon: React.createElement(Home), label: 'Home', path: '/' },
     { key: '/admin/doctors', icon: React.createElement(Stethoscope), label: 'Doctors', path: '/admin/doctors' },
     { key: '/admin/users', icon: React.createElement(User), label: 'Users', path: '/admin/users' },
-    { key: '/profile', icon: React.createElement(User), label: 'Profile', path: '/profile' },
+    { key: '/admin/profile', icon: React.createElement(User), label: 'Profile', path: '/admin/profile' },
 ];
 
 // User Menu
@@ -14,7 +14,7 @@ export const userMenu = [
     { key: '/', icon: React.createElement(Home), label: 'Home', path: '/' },
     { key: '/user/appointments', icon: React.createElement(Calendar), label: 'Appointments', path: '/user/appointments' },
     { key: '/apply-doctor', icon: React.createElement(Clipboard), label: 'Apply Doctor', path: '/apply-doctor' },
-    { key: '/profile', icon: React.createElement(User), label: 'Profile', path: '/profile' },
+    { key: '/user/profile', icon: React.createElement(User), label: 'Profile', path: '/user/profile' },
 ];
 
 // Doctor Menu

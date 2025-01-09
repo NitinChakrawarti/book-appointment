@@ -105,7 +105,7 @@ export function LayoutCompo({ children }) {
             <Layout style={{ marginLeft: 250 }}>
                 <Header className="bg-blue-600 text-white p-4 flex justify-between items-center">
                     <div className="text-lg font-semibold">
-                        Welcome, {user.name}
+                        Welcome, {user?.name}
                     </div>
                     <div className="flex items-center space-x-4">
 
@@ -121,7 +121,7 @@ export function LayoutCompo({ children }) {
                             <Link to="/profile" className="text-white hover:text-primary">
                                 <User className="w-5 h-5" />
                             </Link>
-                            <span>{user.isAdmin ? "Admin" : "User"}</span>
+                            <span>{user?.isAdmin ? "Admin" : "User"}</span>
                         </div>
 
                         <Link to="/login" className="text-white hover:text-primary" onClick={() => {

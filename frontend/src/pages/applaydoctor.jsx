@@ -191,7 +191,7 @@ const ApplyDoctor = () => {
                                 </Form.Item>
                             </Form>
                             :
-                            user.isDoctor ? (
+                            user?.isDoctor ? (
                                 <Alert
                                     message="🎉 Application is Approved"
                                     description="Congratulations! Your application to become doctor on our platform has been approved. You can now access the doctor's dashboard."

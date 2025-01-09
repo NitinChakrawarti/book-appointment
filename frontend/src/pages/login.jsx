@@ -1,5 +1,6 @@
 import { Button, Form, Input, message } from 'antd';
 import axios from 'axios';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export const Login = () => {
@@ -14,7 +15,6 @@ export const Login = () => {
         message.success('User logged in successfully!');
         document.cookie = `logintoken=${response.token}; path=/; secure; HttpOnly;`;
         navigate('/');
-        window.location.reload();
       })
       .catch((error) => {
         message.error('Invalid credentials');
@@ -72,7 +72,7 @@ export const Login = () => {
               onClick={() => navigate('/register')}
               className="text-indigo-500 hover:underline"
             >
-              Register now 
+              Register now
             </button>
           </Form.Item>
         </Form>

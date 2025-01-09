@@ -14,6 +14,8 @@ import Profile from './pages/doctor/profile'
 import Appointments from './pages/doctor/appointments'
 import UserAppointment from './pages/user/userAppointment'
 import Bookingpage from './componets/bookingpage'
+import UserProfile from './pages/user/userprofile'
+import Adminprofile from './pages/admin/profile'
 
 
 function App() {
@@ -25,7 +27,6 @@ function App() {
       <BrowserRouter>
         {loading ? <Spinner />
           :
-
           <Routes >
             <Route path="/" element={
               <ProtectedRoute >
@@ -86,6 +87,22 @@ function App() {
               element={
                 <ProtectedRoute>
                   <Bookingpage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path={`/user/profile`}
+              element={
+                <ProtectedRoute>
+                  <UserProfile />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path={`/admin/profile`}
+              element={
+                <ProtectedRoute>
+                  <Adminprofile />
                 </ProtectedRoute>
               }
             />

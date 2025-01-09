@@ -34,7 +34,7 @@ const UserAppointment = () => {
         };
 
         fetchAppointments();
-    }, [user._id]);
+    }, [user?._id]);
 
     const columns = [
         {
